@@ -13,8 +13,8 @@ VERBOSE = 1
 # ---------------------------------------------------------------------------- #
 # Verify if f and g have the same dimensions
 def checkDimensions(f, g):
-    height, width = src.shape[:2]
-    tmpY, tmpX = src.shape[:2]
+    height, width = f.shape[:2]
+    tmpY, tmpX = g.shape[:2]
     # If the dimensions deviate, return 0
     if(width != tmpX or height != tmpY):
         return 0
@@ -25,7 +25,7 @@ def checkDimensions(f, g):
 # Histogram calculus
 def imHistogram(f):
     hst = [0] * 256
-    height, width = src.shape[:2]
+    height, width = f.shape[:2]
 
     for i in range(0, height):
         for j in range(0, width):
@@ -83,7 +83,7 @@ def rmsd(f, g):
 # ---------------------------------------------------------------------------- #
 # Logarithmic enhancement
 def imLog(f):
-    height, width = src.shape[:2]
+    height, width = f.shape[:2]
     out = np.zeros((height, width, 1), np.float32)
 
     c = np.float32(255 / np.log(1 + f.max()))
@@ -97,7 +97,7 @@ def imLog(f):
 
 # Gamma correction
 def imGamma(f, gamma):
-    height, width = src.shape[:2]
+    height, width = f.shape[:2]
     out = np.zeros((height, width, 1), np.float32)
 
     for i in range(0, height):
@@ -109,7 +109,7 @@ def imGamma(f, gamma):
 
 # Histogram equalization
 def imEqualHist(f):
-    height, width = src.shape[:2]
+    height, width = f.shape[:2]
     out = np.zeros((height, width, 1), np.float32)
 
     hst = imHistogram(f)
@@ -126,7 +126,7 @@ def imEqualHist(f):
 
 # Sharpening filter
 def imSharp(f, a, b):
-    height, width = src.shape[:2]
+    height, width = f.shape[:2]
     ker = np.matrix([[0.05, 0.1, 0.05], [0.1, 0.4, 0.1], [0.05, 0.1, 0.05]])
     np.flip(ker, -1)
 
